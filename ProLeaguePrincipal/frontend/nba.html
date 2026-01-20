@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProLeague - NBA</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN -->
+  <main>
+    <!-- HOME (opcional si quieres mostrar algo al inicio) -->
+    <section id="home-section" style="display:none; padding:30px;">
+      <h2>Bienvenido a ProLeague</h2>
+      <p>Selecciona una sección desde la barra de navegación</p>
+    </section>
+
+    <!-- NBA -->
+    <section id="nba-section" style="display:none;">
+      <h2>Equipos por conferencia</h2>
+      <div id="chart_conferences" style="width: 100%; height: 400px;"></div>
+      <div class="team-list" id="team-list"></div>
+    </section>
+
+    <!-- NFL (opcional) -->
+    <section id="nfl-section" style="display:none; padding:30px;">
+      <h2>NFL - Próximamente</h2>
+      <p>Sección en construcción</p>
+    </section>
+
+    <!-- MODAL -->
+    <div id="team-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span id="modal-close" class="close">&times;</span>
+        <img id="modal-logo" src="" alt="" class="modal-logo">
+        <h2 id="modal-name"></h2>
+        <p id="modal-city"></p>
+        <p id="modal-conference"></p>
+        <p id="modal-division"></p>
+        <div id="modal-stats">
+          <p>Cargando jugadores...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+  <!-- APP -->
+  <script src="app-nba.js"></script>
+</body>
+</html>

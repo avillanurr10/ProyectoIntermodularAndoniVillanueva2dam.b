@@ -2,16 +2,27 @@ import express from "express";
 import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
+import { pool as db } from "./db.js";
+import authRoutes from "./routes/auth.routes.js";
 
 dotenv.config();
+console.log("API KEY:", process.env.BALLDONTLIE_API_KEY);
 
 const app = express();
-app.use(cors());
 
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// Rutas
+app.use("/api/auth", authRoutes);
+
+// Ruta principal
 app.get("/", (req, res) => {
   res.send("ProLeague backend funcionando");
 });
 
+// NBA - equipos
 app.get("/api/nba/teams", async (req, res) => {
   try {
     const response = await axios.get("https://api.balldontlie.io/v1/teams", {
@@ -26,6 +37,8 @@ app.get("/api/nba/teams", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("✅ Backend activo en http://localhost:3000");
+// Puerto
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Backend activo en http://localhost:${PORT}`);
 });

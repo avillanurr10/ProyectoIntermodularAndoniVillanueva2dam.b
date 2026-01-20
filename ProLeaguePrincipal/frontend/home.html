@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - ProLeague</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <main id="home-section" style="padding:30px;">
+    <h2>Bienvenido a ProLeague</h2>
+    <p>Selecciona una sección desde la barra de navegación</p>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Incluir header y footer
+    fetch("header.html").then(r=>r.text()).then(html=>document.getElementById("header-placeholder").innerHTML=html);
+    fetch("footer.html").then(r=>r.text()).then(html=>document.getElementById("footer-placeholder").innerHTML=html);
+  </script>
+
+  <script src="app-home.js"></script>
+</body>
+</html>

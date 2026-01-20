@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - ProLeague</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <main class="login-register-container">
+    <section id="register-section">
+      <h2>Regístrate</h2>
+      <form id="register-form">
+        <input type="text" id="register-username" placeholder="Usuario" required>
+        <input type="email" id="register-email" placeholder="Email" required>
+        <input type="password" id="register-password" placeholder="Contraseña" required>
+        <button type="submit">Crear cuenta</button>
+      </form>
+      <p id="register-error"></p>
+      <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Incluir header y footer
+    fetch("header.html").then(r=>r.text()).then(html=>document.getElementById("header-placeholder").innerHTML=html);
+    fetch("footer.html").then(r=>r.text()).then(html=>document.getElementById("footer-placeholder").innerHTML=html);
+
+    // REGISTER
+    const registerForm = document.getElementById("register-form");
+    const registerError = document.getElementById("register-error");
+
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("register-username").value;
+      const email = document.getElementById("register-email").value;
+      const password = document.getElementById("register-password").value;
+
+      try {
+        const res = await fetch("http://localhost:3000/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          registerError.textContent = data.error || "Error registrando usuario";
+          return;
+        }
+
+        alert("Usuario registrado correctamente");
+        window.location.href = "login.html";
+
+      } catch (err) {
+        registerError.textContent = "Error conectando con el servidor";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
