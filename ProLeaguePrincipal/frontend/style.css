@@ -1,6 +1,7 @@
+/* ===================== */
 /* GLOBAL */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background: #f0f4f8;
   margin: 0;
   padding: 0;
@@ -122,7 +123,7 @@ form p a:hover {
 
 /* LOGIN SECTION */
 #login-section {
-  display: block; /* visible al abrir */
+  display: block;
   text-align: center;
   padding: 50px 20px;
   background: #f0f4f8;
@@ -130,71 +131,129 @@ form p a:hover {
 
 #login-error {
   margin-top: -10px;
-  color: #dc2626; /* rojo error */
+  color: #dc2626;
   font-weight: 500;
 }
 
 /* HOME / NBA / NFL SECTIONS */
 #home-section, #nba-section, #nfl-section {
-  display: none; /* ocultas hasta login */
+  display: none;
   padding: 30px 20px;
 }
 
-/* TEAM CARDS */
+/* ===================== */
+/* NBA SECTION */
+.nba-main {
+  padding: 30px 20px;
+  background: #f5f8fb;
+}
+
+/* Charts container */
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.chart-box {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  padding: 20px;
+  flex: 1 1 300px;
+  max-width: 450px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TEAM CARDS - FLIP CARD */
 .team-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
   padding: 20px;
 }
 
 .team-card {
-  background: white;
-  border-radius: 12px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  perspective: 1000px;
+}
+
+.team-card-inner {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
   cursor: pointer;
 }
 
-.team-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 12px 20px rgba(0,0,0,0.25);
-  background: #f0faff;
+.team-card:hover .team-card-inner {
+  transform: rotateY(180deg);
 }
 
-.team-card:hover .team-logo {
-  transform: scale(1.1);
-  transition: transform 0.3s ease;
+/* FRONT */
+.team-card-front,
+.team-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-.team-card:hover .team-name {
-  color: #0f172a;
-  transition: color 0.3s ease;
+/* FRONT STYLE */
+.team-card-front {
+  background: linear-gradient(145deg, #ffffff, #e0f2ff);
 }
 
-.team-card:hover .team-info {
-  color: #0a5272;
-  transition: color 0.3s ease;
+/* BACK STYLE */
+.team-card-back {
+  background: linear-gradient(145deg, #38bdf8, #0ea5e9);
+  color: white;
+  transform: rotateY(180deg);
+  font-size: 0.9em;
+  justify-content: center;
+  gap: 8px;
 }
 
+/* FRONT CONTENT */
 .team-logo {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
-  display: block;
-  margin: 0 auto 10px;
+  margin-bottom: 12px;
 }
 
 .team-name {
   font-weight: bold;
   margin-bottom: 5px;
+  font-size: 1.1em;
 }
 
 .team-info {
   font-size: 0.9em;
   color: #555;
+}
+
+/* BACK CONTENT */
+.team-back-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.team-back-stat {
+  margin: 3px 0;
 }
 
 /* TITULO PRINCIPAL */
@@ -221,7 +280,7 @@ h2 {
 .modal-content {
   background-color: #fff;
   padding: 25px;
-  border-radius: 12px;
+  border-radius: 15px;
   max-width: 400px;
   width: 90%;
   text-align: center;
@@ -253,8 +312,9 @@ h2 {
   margin: 5px 0;
 }
 
-/* OPCIONAL: animación ligera para el loader */
-#modal-stats p:first-child {
-  font-style: italic;
-  color: #0f172a;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .charts-container {
+    flex-direction: column;
+  }
 }
