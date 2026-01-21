@@ -10,16 +10,43 @@
   <!-- HEADER -->
   <div id="header-placeholder"></div>
 
-  <main id="home-section" style="padding:30px;">
-    <h2>Bienvenido a ProLeague</h2>
-    <p>Selecciona una sección desde la barra de navegación</p>
+  <main id="home-section" class="home-main">
+
+    <!-- HERO / SLIDER -->
+    <section class="hero-slider">
+      <div class="slide" style="background-image:url('images/nba1.png')"></div>
+      <div class="slide" style="background-image:url('images/nfl1.jpg')"></div>
+      <div class="slide" style="background-image:url('images/nba2.jpg')"></div>
+      <div class="slide" style="background-image:url('images/nfl2.jpg')"></div>
+      <div class="slide" style="background-image:url('images/nfl3.jpg')"></div>
+      <div class="slide" style="background-image:url('images/nfl4.jpg')"></div>
+      <div class="slide" style="background-image:url('images/nba3.jpg')"></div>
+      <div class="slide" style="background-image:url('images/nba4.jpg')"></div>
+      <div class="slider-overlay">
+        <h1>Bienvenido a ProLeague</h1>
+        <p>Las últimas noticias y estadísticas de NBA y NFL en un solo lugar</p>
+        <div class="home-buttons">
+          <a href="nba.html" class="btn-primary">Ir a NBA</a>
+          <a href="nfl.html" class="btn-secondary">Ir a NFL</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTICIAS -->
+    <section class="news-section">
+      <h2>Últimas Noticias</h2>
+      <div class="news-list" id="news-list">
+        <!-- Noticias cargadas por JS -->
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
   <div id="footer-placeholder"></div>
 
   <script>
-    // Incluir header y footer
+    // Header y Footer
     fetch("header.html").then(r=>r.text()).then(html=>document.getElementById("header-placeholder").innerHTML=html);
     fetch("footer.html").then(r=>r.text()).then(html=>document.getElementById("footer-placeholder").innerHTML=html);
   </script>

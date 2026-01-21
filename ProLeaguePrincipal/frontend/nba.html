@@ -6,39 +6,52 @@
   <title>ProLeague - NBA</title>
   <link rel="stylesheet" href="style.css">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <!-- HEADER -->
   <div id="header-placeholder"></div>
 
   <!-- MAIN -->
   <main class="nba-main">
-    <!-- SECCIÓN NBA -->
-    <section id="nba-section">
-      <h2>Equipos NBA</h2>
+    <div id="nba-section" style="display:none;">
+      <h2 class="section-title">Equipos NBA</h2>
 
       <!-- GRÁFICOS -->
       <div class="charts-container">
-        <div class="chart-box" id="chart_conferences"></div>
-        <div class="chart-box" id="chart_divisions"></div>
-        <div class="chart-box" id="chart_cities"></div>
-        <div class="chart-box" id="chart_players"></div> <!-- NUEVO: Jugadores por equipo -->
+        <div class="chart-card">
+          <h3>Conferencias</h3>
+          <div class="chart-box" id="chart_conferences"></div>
+        </div>
+        <div class="chart-card">
+          <h3>Divisiones</h3>
+          <div class="chart-box" id="chart_divisions"></div>
+        </div>
+        <div class="chart-card">
+          <h3>Iniciales de ciudad</h3>
+          <div class="chart-box" id="chart_cities"></div>
+        </div>
+        <div class="chart-card">
+          <h3>Jugadores</h3>
+          <div class="chart-box" id="chart_players"></div>
+        </div>
       </div>
 
-      <!-- TARJETAS -->
+      <!-- TARJETAS DE EQUIPOS -->
       <div class="team-list" id="team-list"></div>
-    </section>
 
-    <!-- MODAL -->
-    <div id="team-modal" class="modal">
-      <div class="modal-content">
-        <span id="modal-close" class="close">&times;</span>
-        <img id="modal-logo" src="" alt="" class="modal-logo">
-        <h2 id="modal-name"></h2>
-        <p id="modal-city"></p>
-        <p id="modal-conference"></p>
-        <p id="modal-division"></p>
-        <div id="modal-stats"></div>
+      <!-- MODAL -->
+      <div id="team-modal" class="modal">
+        <div class="modal-content">
+          <span id="modal-close" class="close">&times;</span>
+          <img id="modal-logo" class="modal-logo">
+          <h2 id="modal-name"></h2>
+          <p id="modal-city"></p>
+          <p id="modal-conference"></p>
+          <p id="modal-division"></p>
+          <div id="modal-stats"></div>
+        </div>
       </div>
     </div>
   </main>
@@ -46,7 +59,6 @@
   <!-- FOOTER -->
   <div id="footer-placeholder"></div>
 
-  <!-- JS -->
   <script src="app-nba.js"></script>
 </body>
 </html>

@@ -1,55 +1,54 @@
-// =======================
 // VERIFICAR LOGIN
-// =======================
 const user = JSON.parse(localStorage.getItem("user"));
-if (!user) {
-  window.location.href = "login.html";
-}
+if (!user) window.location.href = "login.html";
 
-// =======================
-// SECCIONES
-// =======================
-const homeSection = document.getElementById("home-section");
-const logoutLink = document.getElementById("nav-logout");
-
-// Mostrar logout y home al cargar si hay usuario
-if (logoutLink) logoutLink.style.display = "inline";
-if (homeSection) homeSection.style.display = "block";
-
-// =======================
 // LOGOUT
-// =======================
+const logoutLink = document.getElementById("nav-logout");
 if (logoutLink) {
-  logoutLink.addEventListener("click", (e) => {
+  logoutLink.style.display = "inline";
+  logoutLink.addEventListener("click", e => {
     e.preventDefault();
     localStorage.removeItem("user");
     window.location.href = "login.html";
   });
 }
 
-// =======================
-// NAVIGATION
-// =======================
-const navHome = document.getElementById("nav-home");
-if (navHome) {
-  navHome.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (homeSection) homeSection.style.display = "block";
-  });
+// SLIDER
+let currentSlide = 0;
+const slides = document.querySelectorAll(".hero-slider .slide");
+
+function showSlide(index){
+  slides.forEach((s,i)=> s.classList.toggle("active", i===index));
 }
 
-const navNBA = document.getElementById("nav-nba");
-if (navNBA) {
-  navNBA.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = "nba.html"; // redirige a la página NBA
-  });
+function nextSlide(){
+  currentSlide = (currentSlide+1) % slides.length;
+  showSlide(currentSlide);
 }
 
-const navNFL = document.getElementById("nav-nfl");
-if (navNFL) {
-  navNFL.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = "nfl.html"; // redirige a la página NFL
-  });
+if(slides.length > 0){
+  showSlide(0);
+  setInterval(nextSlide, 5000);
 }
+
+// NOTICIAS SIMULADAS (después se pueden cargar de RSS o API)
+const newsList = document.getElementById("news-list");
+const noticias = [
+  {title:"LeBron James lidera a Lakers", desc:"Lakers consiguen victoria con gran actuación de LeBron.", img:"images/news1.jpg"},
+  {title:"Packers y Buccaneers se enfrentan", desc:"Partido épico en la NFC con resultados sorprendentes.", img:"images/news2.jpg"},
+  {title:"Curry anota 50 puntos", desc:"Golden State Warriors vencen con actuación histórica.", img:"images/news3.jpg"},
+  {title:"Tom Brady anuncia retiro", desc:"Una leyenda de la NFL dice adiós a los campos.", img:"images/news4.jpg"}
+];
+
+noticias.forEach(n => {
+  const card = document.createElement("div");
+  card.className = "news-card";
+  card.innerHTML = `
+    <img src="${n.img}" alt="${n.title}">
+    <div class="news-card-content">
+      <h3>${n.title}</h3>
+      <p>${n.desc}</p>
+    </div>
+  `;
+  newsList.appendChild(card);
+});
