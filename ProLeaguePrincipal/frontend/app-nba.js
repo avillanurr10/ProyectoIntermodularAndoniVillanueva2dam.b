@@ -74,7 +74,7 @@ async function cargarEquipos() {
       dibujarGraficoJugadores(equipos);
     });
   } catch (err) {
-    console.error("Error cargando equipos:", err);
+    console.error("Error cargando equipos NBA:", err);
   }
 }
 
@@ -89,7 +89,7 @@ function mostrarEquipos(equipos) {
     card.innerHTML = `
       <div class="team-card-inner">
         <div class="team-card-front">
-          <img class="team-logo" src="logos/${logoSrc}" alt="${team.full_name}" onerror="this.style.display='none'">
+          <img class="team-logo" src="logos/${logoSrc}" alt="${team.full_name}">
           <div class="team-name">${team.full_name}</div>
           <div class="team-info">Ciudad: ${team.city}</div>
           <div class="team-info">Conferencia: ${team.conference}</div>
@@ -102,13 +102,39 @@ function mostrarEquipos(equipos) {
         </div>
       </div>
     `;
+
+    // ✅ Botón favorito
+    const favBtn = document.createElement("button");
+    favBtn.textContent = "⭐";
+    favBtn.className = "fav-btn";
+    favBtn.onclick = async (e) => {
+      e.stopPropagation();
+      const user = JSON.parse(localStorage.getItem("user"));
+      try {
+        await fetch("http://localhost:3000/api/favorites", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: user.id,
+            league: "NBA",
+            teamId: team.id,
+            teamName: team.full_name
+          })
+        });
+        alert("Añadido a favoritos ✅");
+      } catch (err) {
+        console.error(err);
+        alert("Error al añadir favorito ❌");
+      }
+    };
+    card.querySelector(".team-card-front").appendChild(favBtn);
+
     contenedor.appendChild(card);
 
     card.onclick = () => {
       const modal = document.getElementById("team-modal");
       modal.style.display = "flex";
       document.getElementById("modal-logo").src = `logos/${logoSrc}`;
-      document.getElementById("modal-logo").alt = team.full_name;
       document.getElementById("modal-name").textContent = team.full_name;
       document.getElementById("modal-city").textContent = `Ciudad: ${team.city}`;
       document.getElementById("modal-conference").textContent = `Conferencia: ${team.conference}`;
@@ -119,9 +145,12 @@ function mostrarEquipos(equipos) {
       `;
     };
   });
+
+  document.getElementById("modal-close").onclick = () =>
+    document.getElementById("team-modal").style.display = "none";
 }
 
-// ====== GRÁFICOS ======
+// ===== GRÁFICOS =====
 function dibujarGraficoConferencia(equipos){
   const data = google.visualization.arrayToDataTable([
     ["Conferencia", "Equipos"],
@@ -149,7 +178,6 @@ function dibujarGraficoCiudades(equipos){
 }
 
 function dibujarGraficoJugadores(equipos){
-  if(!equipos||equipos.length===0) return;
   const data = google.visualization.arrayToDataTable([["Equipo","Jugadores"], ...equipos.map(t=>[t.full_name, t.numPlayers||0])]);
   new google.visualization.ColumnChart(document.getElementById("chart_players"))
     .draw(data,{title:"Número de jugadores por equipo", legend:{position:"none"}});

@@ -22,18 +22,45 @@ app.get("/", (req, res) => {
   res.send("ProLeague backend funcionando");
 });
 
-// NBA - equipos
+// =======================
+// NBA - EQUIPOS
+// =======================
 app.get("/api/nba/teams", async (req, res) => {
   try {
-    const response = await axios.get("https://api.balldontlie.io/v1/teams", {
-      headers: {
-        Authorization: `Bearer ${process.env.BALLDONTLIE_API_KEY}`
+    const response = await axios.get(
+      "https://api.balldontlie.io/v1/teams",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.BALLDONTLIE_API_KEY}`
+        }
       }
-    });
+    );
+
     res.json(response.data.data);
   } catch (err) {
-    console.error("Error llamando a la API:", err.message);
+    console.error("Error obteniendo equipos NBA:", err.message);
     res.status(500).json({ error: "Error obteniendo equipos NBA" });
+  }
+});
+
+// =======================
+// NFL - EQUIPOS (MISMO QUE NBA)
+// =======================
+app.get("/api/nfl/teams", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://api.balldontlie.io/nfl/v1/teams",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.BALLDONTLIE_API_KEY}`
+        }
+      }
+    );
+
+    res.json(response.data.data);
+  } catch (err) {
+    console.error("Error obteniendo equipos NFL:", err.message);
+    res.status(500).json({ error: "Error obteniendo equipos NFL" });
   }
 });
 
