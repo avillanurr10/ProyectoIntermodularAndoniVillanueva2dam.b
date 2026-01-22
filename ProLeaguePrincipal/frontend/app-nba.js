@@ -18,15 +18,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   const nbaSection = document.getElementById("nba-section");
   nbaSection.style.display = "block";
 
-  cargarEquipos();
+  // ===== CARGAR CLASIFICACIÓN Y EQUIPOS =====
+  await cargarClasificacion();
+  await cargarEquipos();
 
-  // Modal
+  // ===== MODAL =====
   const modal = document.getElementById("team-modal");
   document.getElementById("modal-close").onclick = () => modal.style.display = "none";
   window.onclick = e => { if(e.target === modal) modal.style.display = "none"; };
 });
 
-// Header / Footer
+// ===== HEADER / FOOTER =====
 async function loadHeader() {
   document.getElementById("header-placeholder").innerHTML =
     await fetch("header.html").then(r => r.text());
@@ -36,7 +38,7 @@ async function loadFooter() {
     await fetch("footer.html").then(r => r.text());
 }
 
-// Google Charts
+// ===== GOOGLE CHARTS =====
 google.charts.load("current", { packages: ["corechart"] });
 
 const teamLogos = {
@@ -51,6 +53,31 @@ const teamLogos = {
   "Portland Trail Blazers": "POR.png","Sacramento Kings": "SAC.png","San Antonio Spurs": "SAS.png",
   "Toronto Raptors": "TOR.png","Utah Jazz": "UTA.png","Washington Wizards": "WIZ.png"
 };
+
+// ===== FUNCIONES =====
+async function cargarClasificacion() {
+  try {
+    const res = await fetch("http://localhost:3000/api/nba/standings");
+    const data = await res.json();
+
+    const tbody = document.querySelector("#standings-table tbody");
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center">
+          <a href="${data.fullViewLink.href}" target="_blank">
+            Ver clasificación completa en ESPN 🏀
+          </a>
+        </td>
+      </tr>
+    `;
+  } catch(err) {
+    console.error("Error cargando clasificación NBA:", err);
+    const tbody = document.querySelector("#standings-table tbody");
+    tbody.innerHTML = `<tr><td colspan="5">No se pudo cargar la clasificación</td></tr>`;
+  }
+}
+
+
 
 async function cargarEquipos() {
   try {
@@ -103,7 +130,7 @@ function mostrarEquipos(equipos) {
       </div>
     `;
 
-    // ✅ Botón favorito
+    // Botón favorito
     const favBtn = document.createElement("button");
     favBtn.textContent = "⭐";
     favBtn.className = "fav-btn";
@@ -145,9 +172,6 @@ function mostrarEquipos(equipos) {
       `;
     };
   });
-
-  document.getElementById("modal-close").onclick = () =>
-    document.getElementById("team-modal").style.display = "none";
 }
 
 // ===== GRÁFICOS =====

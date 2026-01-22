@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ProLeague - NFL</title>
+
   <link rel="stylesheet" href="style.css">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,38 +15,50 @@
   <div id="header-placeholder"></div>
 
   <!-- MAIN -->
-  <main class="nba-main">
-    <div id="nfl-section" style="display:none;">
+  <main class="nba-main nfl">
+    <section id="nfl-section" style="display:none;">
+
       <h2 class="section-title">Equipos NFL</h2>
 
-      <!-- GRÁFICOS -->
-      <div class="charts-container">
-        <div class="chart-card">
-          <h3>Conferencias</h3>
-          <div class="chart-box" id="chart_conferences"></div>
+      <!-- ===================== -->
+      <!-- ANALYTICS DASHBOARD -->
+      <!-- ===================== -->
+      <section class="analytics-section">
+        <div class="analytics-header">
+          <h3>📊 Análisis de la Liga</h3>
+          <p>Distribución general de los equipos NFL</p>
         </div>
-        <div class="chart-card">
-          <h3>Divisiones</h3>
-          <div class="chart-box" id="chart_divisions"></div>
-        </div>
-        <div class="chart-card">
-          <h3>Iniciales de ciudad</h3>
-          <div class="chart-box" id="chart_cities"></div>
-        </div>
-        <div class="chart-card">
-          <h3>Jugadores</h3>
-          <div class="chart-box" id="chart_players"></div>
-        </div>
-      </div>
 
-      <!-- Botón Favoritos -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h4>Conferencias</h4>
+            <div class="chart-box" id="chart_conferences"></div>
+          </div>
+
+          <div class="chart-card">
+            <h4>Divisiones</h4>
+            <div class="chart-box" id="chart_divisions"></div>
+          </div>
+
+          <div class="chart-card">
+            <h4>Ciudades</h4>
+            <div class="chart-box" id="chart_cities"></div>
+          </div>
+
+          <div class="chart-card">
+            <h4>Jugadores</h4>
+            <div class="chart-box" id="chart_players"></div>
+          </div>
+        
+      </section>
+
+      <!-- FAVORITOS -->
       <div class="favorites-toggle">
-        <button id="show-favorites-btn" class="btn-secondary">⭐ Ver Mis Favoritos</button>
+        <a href="favorites.html" class="btn-secondary">⭐ Ver Mis Favoritos</a>
       </div>
 
-      <!-- TARJETAS DE EQUIPOS -->
+      <!-- EQUIPOS -->
       <div class="team-list" id="team-list"></div>
-      <div class="team-list" id="favorites-list" style="display:none;"></div>
 
       <!-- MODAL -->
       <div id="team-modal" class="modal">
@@ -59,7 +72,8 @@
           <div id="modal-stats"></div>
         </div>
       </div>
-    </div>
+
+    </section>
   </main>
 
   <!-- FOOTER -->

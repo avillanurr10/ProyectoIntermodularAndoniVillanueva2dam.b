@@ -3,10 +3,11 @@ import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
 import { pool as db } from "./db.js";
+
 import authRoutes from "./routes/auth.routes.js";
+import favoritesRoutes from "./routes/favorites.routes.js";
 
 dotenv.config();
-console.log("API KEY:", process.env.BALLDONTLIE_API_KEY);
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // Rutas
 app.use("/api/auth", authRoutes);
+app.use("/api/favorites", favoritesRoutes);
 
 // Ruta principal
 app.get("/", (req, res) => {
@@ -44,7 +46,7 @@ app.get("/api/nba/teams", async (req, res) => {
 });
 
 // =======================
-// NFL - EQUIPOS (MISMO QUE NBA)
+// NFL - EQUIPOS
 // =======================
 app.get("/api/nfl/teams", async (req, res) => {
   try {
@@ -61,6 +63,22 @@ app.get("/api/nfl/teams", async (req, res) => {
   } catch (err) {
     console.error("Error obteniendo equipos NFL:", err.message);
     res.status(500).json({ error: "Error obteniendo equipos NFL" });
+  }
+});
+// =======================
+// NBA - CLASIFICACIÓN
+// =======================
+app.get("/api/nba/standings", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/standings"
+    );
+
+    // Enviamos los datos crudos al frontend
+    res.json(response.data);
+  } catch (err) {
+    console.error("Error obteniendo clasificación NBA:", err.message);
+    res.status(500).json({ error: "No se pudo cargar la clasificación NBA" });
   }
 });
 

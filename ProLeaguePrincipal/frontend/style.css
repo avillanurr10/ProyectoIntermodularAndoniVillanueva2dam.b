@@ -113,17 +113,20 @@ h2 {
   perspective: 1200px;
 }
 
+/* ===================== */
+/* TEAM CARDS (sin giro) */
 .team-card-inner {
   position: relative;
   width: 100%;
   height: 300px;
-  transition: transform 0.7s;
-  transform-style: preserve-3d;
+  transition: transform 0.3s; /* solo transición de escala o hover */
   cursor: pointer;
+  /* transform-style: preserve-3d;  eliminado */
 }
 
+/* Quitamos el efecto de giro */
 .team-card:hover .team-card-inner {
-  transform: rotateY(180deg);
+  /* transform: rotateY(180deg);  eliminado */
 }
 
 .team-card-front,
@@ -136,6 +139,8 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 1;             /* añadir */
+  pointer-events: auto;
   justify-content: center;
   padding: 15px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.4);
@@ -143,6 +148,7 @@ h2 {
 
 /* FRONT */
 .team-card-front {
+  z-index: 2;
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255,255,255,0.2);
@@ -838,7 +844,12 @@ body { top: 0 !important; }
   color: #fff;
   border-radius: 5px;
   transition: transform 0.2s;
+
+  position: relative; /* añadir */
+  z-index: 10;        /* añadir */
+  pointer-events: auto; /* añadir */
 }
+
 
 .fav-btn:hover {
   transform: scale(1.2);
@@ -871,6 +882,146 @@ body { top: 0 !important; }
 .remove-fav:hover {
   transform: scale(1.1);
 }
+/* ===================== */
+/* ANALYTICS DASHBOARD */
+/* ===================== */
+
+.analytics-section {
+  max-width: 1400px;
+  margin: 0 auto 70px auto;
+  padding: 40px 30px;
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 30px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+}
+
+.analytics-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.analytics-header h3 {
+  font-size: 2.1em;
+  color: #66fcf1;
+  margin-bottom: 8px;
+}
+
+.analytics-header p {
+  color: #cbd5f5;
+  font-size: 1.05em;
+}
+
+/* GRID DE GRÁFICOS */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+/* Cards de gráficos (más limpias) */
+.charts-grid .chart-card {
+  height: 360px;
+  padding: 20px;
+  justify-content: flex-start;
+}
+
+.charts-grid .chart-card h4 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  color: #e5e7eb;
+}
+.chart-card {
+  background: linear-gradient(145deg, rgba(15,23,42,0.95), rgba(30,41,59,0.85));
+  border-radius: 22px;
+  padding: 20px 18px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(102,252,241,0.25);
+}
+
+.chart-card h4 {
+  text-align: center;
+  font-size: 1.2em;
+  color: #66fcf1;
+  margin-bottom: 10px;
+}
+.chart-box {
+  width: 100%;
+  flex-grow: 1;
+  min-height: 260px;
+}
+/* Animación especial para este chart */
+#chart_avg_stats {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.chart-card:hover #chart_avg_stats {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(102,252,241,0.3);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.standings-section {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(15,23,42,0.85);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.standings-section h3 {
+  text-align: center;
+  color: #66fcf1;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+.standings-container {
+  overflow-x: auto;
+}
+
+#standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1em;
+  color: #f5f5f5;
+}
+
+#standings-table th,
+#standings-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+#standings-table th {
+  background: #1f2833;
+  color: #66fcf1;
+}
+
+#standings-table tr:nth-child(even) {
+  background: rgba(255,255,255,0.05);
+}
+
+#standings-table tr:hover {
+  background: rgba(102,252,241,0.1);
+}
+
+
 
 
 

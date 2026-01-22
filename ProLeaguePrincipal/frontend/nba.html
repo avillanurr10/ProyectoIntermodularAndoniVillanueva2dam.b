@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ProLeague - NBA</title>
+
   <link rel="stylesheet" href="style.css">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -15,37 +16,66 @@
 
   <!-- MAIN -->
   <main class="nba-main">
-    <div id="nba-section" style="display:none;">
-      <h2 class="section-title">Equipos NBA</h2>
+    <section id="nba-section" style="display:none;">
 
-      <!-- GRÁFICOS -->
-      <div class="charts-container">
-        <div class="chart-card">
-          <h3>Conferencias</h3>
-          <div class="chart-box" id="chart_conferences"></div>
+      <!-- CLASIFICACIÓN NBA -->
+      <section class="standings-section">
+        <h3 class="section-title">🏀 Clasificación Actual NBA</h3>
+        <div class="standings-container">
+          <table id="standings-table">
+            <thead>
+              <tr>
+                <th>Pos</th>
+                <th>Equipo</th>
+                <th>G</th>
+                <th>P</th>
+                <th>Porc. Gan.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Se llena desde JS -->
+            </tbody>
+          </table>
         </div>
-        <div class="chart-card">
-          <h3>Divisiones</h3>
-          <div class="chart-box" id="chart_divisions"></div>
-        </div>
-        <div class="chart-card">
-          <h3>Iniciales de ciudad</h3>
-          <div class="chart-box" id="chart_cities"></div>
-        </div>
-        <div class="chart-card">
-          <h3>Jugadores</h3>
-          <div class="chart-box" id="chart_players"></div>
-        </div>
-      </div>
+      </section>
 
-      <!-- Botón Favoritos -->
+      <!-- ANALYTICS DASHBOARD -->
+      <section class="analytics-section">
+        <div class="analytics-header">
+          <h3>📊 Análisis de la Liga</h3>
+          <p>Distribución general de los equipos NBA</p>
+        </div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h4>Conferencias</h4>
+            <div class="chart-box" id="chart_conferences"></div>
+          </div>
+
+          <div class="chart-card">
+            <h4>Divisiones</h4>
+            <div class="chart-box" id="chart_divisions"></div>
+          </div>
+
+          <div class="chart-card">
+            <h4>Ciudades</h4>
+            <div class="chart-box" id="chart_cities"></div>
+          </div>
+
+          <div class="chart-card">
+            <h4>Jugadores</h4>
+            <div class="chart-box" id="chart_players"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAVORITOS -->
       <div class="favorites-toggle">
-        <button id="show-favorites-btn" class="btn-secondary">⭐ Ver Mis Favoritos</button>
+        <a href="favorites.html" class="btn-secondary">⭐ Ver Mis Favoritos</a>
       </div>
 
-      <!-- TARJETAS DE EQUIPOS -->
+      <!-- EQUIPOS -->
       <div class="team-list" id="team-list"></div>
-      <div class="team-list" id="favorites-list" style="display:none;"></div>
 
       <!-- MODAL -->
       <div id="team-modal" class="modal">
@@ -59,7 +89,8 @@
           <div id="modal-stats"></div>
         </div>
       </div>
-    </div>
+
+    </section>
   </main>
 
   <!-- FOOTER -->

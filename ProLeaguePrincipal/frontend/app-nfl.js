@@ -166,6 +166,8 @@ function dibujarGraficoJugadores(equipos){
     .draw(data,{title:"Número de jugadores por equipo",legend:{position:"none"}});
 }
 
+
+
 // Favoritos
 async function cargarFavoritos(userId){
   const contenedor=document.getElementById("favorites-list");
