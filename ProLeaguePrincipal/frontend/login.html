@@ -13,12 +13,15 @@
 
   <main class="login-register-container">
     <section id="login-section">
+      <img src="logos/logo-png.png" alt="ProLeague Logo" class="auth-logo">
       <h2>Inicia sesión</h2>
+
       <form id="login-form">
         <input type="text" id="login-username" placeholder="Usuario o email" required>
         <input type="password" id="login-password" placeholder="Contraseña" required>
         <button type="submit">Entrar</button>
       </form>
+
       <p id="login-error"></p>
       <p>¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
     </section>
@@ -28,15 +31,22 @@
   <div id="footer-placeholder"></div>
 
   <script>
-    // Incluir header y footer
-    fetch("header.html").then(r=>r.text()).then(html=>document.getElementById("header-placeholder").innerHTML=html);
-    fetch("footer.html").then(r=>r.text()).then(html=>document.getElementById("footer-placeholder").innerHTML=html);
+    fetch("header.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("header-placeholder").innerHTML = html;
+        if (typeof google !== "undefined" && google.translate) googleTranslateElementInit();
+      });
+
+    fetch("footer.html")
+      .then(r => r.text())
+      .then(html => document.getElementById("footer-placeholder").innerHTML = html);
 
     // LOGIN
     const loginForm = document.getElementById("login-form");
     const loginError = document.getElementById("login-error");
 
-    loginForm.addEventListener("submit", async (e) => {
+    loginForm.addEventListener("submit", async e => {
       e.preventDefault();
       const email = document.getElementById("login-username").value;
       const password = document.getElementById("login-password").value;
@@ -47,18 +57,14 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
         });
-
         const data = await res.json();
-
         if (!res.ok) {
           loginError.textContent = data.error;
           return;
         }
-
         loginError.textContent = "";
         localStorage.setItem("user", JSON.stringify(data.user));
         window.location.href = "home.html";
-
       } catch (err) {
         loginError.textContent = "Error conectando con el servidor";
         console.error(err);

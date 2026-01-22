@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar">
     <div class="nav-logo">
-      <img src="/frontend/logos/logo-png.png" alt="GameDeals" style="height:40px; vertical-align: middle;">
+      <img src="/frontend/logos/logo-png.png" alt="ProLeague" style="height:40px; vertical-align: middle;">
       ProLeague
     </div>
     <ul class="nav-links">
@@ -9,6 +9,46 @@
       <li><a href="nba.html" id="nav-nba">NBA</a></li>
       <li><a href="nfl.html" id="nav-nfl">NFL</a></li>
       <li><a href="#" id="nav-logout" style="display:none;">Cerrar sesión</a></li>
+      <li class="translate-li">
+        <!-- Dropdown de idiomas -->
+        <select id="language-selector">
+          <option value="es" selected>🇪🇸 Español</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="fr">🇫🇷 Français</option>
+        </select>
+      </li>
     </ul>
   </nav>
 </header>
+
+<!-- Google Translate -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'es',
+    includedLanguages: 'en,fr,es',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element'); // no se usa visualmente, solo para inicializar
+}
+
+// Función para cambiar idioma desde el dropdown
+function changeLanguage(lang) {
+  const frame = document.querySelector('iframe.goog-te-menu-frame');
+  if (!frame) {
+    alert("Esperando a que Google Translate se cargue...");
+    return;
+  }
+
+  const frameDoc = frame.contentDocument || frame.contentWindow.document;
+  const langAnchor = frameDoc.querySelector(`a[lang='${lang}']`);
+  if (langAnchor) langAnchor.click();
+}
+
+// Escuchar el selector
+document.addEventListener('change', function(e){
+  if (e.target && e.target.id === 'language-selector') {
+    changeLanguage(e.target.value);
+  }
+});
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

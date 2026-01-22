@@ -321,7 +321,7 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #ffffff;
   text-align: center;
   padding: 0 20px;
 }
@@ -329,7 +329,7 @@ h2 {
 .slider-overlay h1 {
   font-size: 2.5em;
   margin-bottom: 10px;
-  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  text-shadow: 2px 2px 5px rgba(102, 112, 245, 0.5);
 }
 
 .slider-overlay p {
@@ -358,8 +358,8 @@ h2 {
 }
 
 .btn-secondary {
-  background: #facc15;
-  color: #0f172a;
+  background: #313150;
+  color: #ffffff;
 }
 
 .btn-secondary:hover {
@@ -398,11 +398,6 @@ h2 {
   box-shadow: 0 12px 25px rgba(0,0,0,0.25);
 }
 
-.news-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
 
 .news-card-content {
   padding: 15px;
@@ -427,3 +422,412 @@ h2 {
     font-size: 1em;
   }
 }
+/* ===================== */
+/* NEWS – MEJORA VISUAL */
+/* ===================== */
+
+.news-section {
+  padding: 60px 30px;
+  background: linear-gradient(180deg, #f0f9ff, #e0f2fe);
+}
+
+.news-section h2 {
+  color: #0f172a;
+  font-size: 2.4em;
+  margin-bottom: 40px;
+}
+
+.news-card {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: newsFade 0.6s ease forwards;
+}
+
+@keyframes newsFade {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.news-card img {
+  width: 50px !important;
+  height: 50px !important;
+  object-fit: contain !important;
+  margin: 0 auto 12px auto;
+  display: block;
+}
+
+.news-card-content {
+  padding: 18px;
+}
+
+.news-card-content h3 {
+  font-size: 1.15em;
+  margin: 10px 0;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.news-card-content p {
+  font-size: 0.95em;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* TAG NBA / NFL */
+.news-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.news-tag.nba {
+  background: #1d4ed8;
+  color: white;
+}
+
+.news-tag.nfl {
+  background: #b91c1c;
+  color: white;
+}
+
+/* FOOTER */
+.news-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.news-footer a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.news-footer a:hover {
+  text-decoration: underline;
+}
+
+.news-footer small {
+  color: #64748b;
+}
+/* ===================== */
+/* AUTH (LOGIN & REGISTER) */
+/* ===================== */
+
+.login-register-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #1f2833, #0b0c10);
+  padding: 40px 20px;
+}
+
+.login-register-container section {
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 25px;
+  padding: 40px 35px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  text-align: center;
+  animation: authFade 0.6s ease forwards;
+}
+
+@keyframes authFade {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* LOGO */
+.auth-logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* TITULO */
+.login-register-container h2 {
+  margin-bottom: 25px;
+  font-size: 2em;
+  color: #66fcf1;
+}
+
+/* FORM */
+.login-register-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* INPUTS */
+.login-register-container input {
+  padding: 14px 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1em;
+  outline: none;
+  background: #0f172a;
+  color: #f5f5f5;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.login-register-container input::placeholder {
+  color: #94a3b8;
+}
+
+.login-register-container input:focus {
+  border-color: #66fcf1;
+  box-shadow: 0 0 0 2px rgba(102,252,241,0.25);
+}
+
+/* BOTON */
+.login-register-container button {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #45a29e, #66fcf1);
+  color: #0b0c10;
+  font-size: 1.05em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.login-register-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102,252,241,0.4);
+}
+
+/* LINKS */
+.login-register-container p {
+  margin-top: 18px;
+  font-size: 0.95em;
+  color: #cbd5f5;
+}
+
+.login-register-container a {
+  color: #66fcf1;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-register-container a:hover {
+  text-decoration: underline;
+}
+
+/* ERRORES */
+#login-error,
+#register-error {
+  margin-top: 10px;
+  color: #f87171;
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .login-register-container section {
+    padding: 30px 25px;
+  }
+
+  .auth-logo {
+    width: 120px;
+  }
+}
+/* ===================== */
+/* NOTICIA DESTACADA */
+/* ===================== */
+
+.featured-news {
+  max-width: 1100px;
+  margin: 0 auto 60px auto;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+  background: #0f172a;
+}
+
+.featured-news img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+}
+
+.featured-content {
+  padding: 30px;
+}
+
+.featured-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 0.85em;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.featured-tag.nba {
+  background: #1d4ed8;
+  color: white;
+}
+
+.featured-tag.nfl {
+  background: #b91c1c;
+  color: white;
+}
+
+.featured-content h3 {
+  font-size: 2em;
+  margin: 10px 0 15px 0;
+  color: #f8fafc;
+  line-height: 1.25;
+}
+
+.featured-content p {
+  font-size: 1.05em;
+  color: #cbd5f5;
+  line-height: 1.6;
+}
+
+.featured-footer {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.featured-footer a {
+  font-weight: bold;
+  color: #66fcf1;
+  text-decoration: none;
+  font-size: 1.05em;
+}
+
+.featured-footer a:hover {
+  text-decoration: underline;
+}
+
+.featured-footer small {
+  color: #94a3b8;
+}
+.news-card img {
+  filter: brightness(0.85);
+}
+/* ===================== */
+/* NEWS FILTER */
+/* ===================== */
+
+.news-filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+.filter-btn {
+  padding: 10px 22px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: #e2e8f0;
+  color: #0f172a;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  background: #cbd5f5;
+}
+
+.filter-btn.active {
+  background: #2563eb;
+  color: white;
+}
+
+.news-card.hidden {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  transition: all 0.3s ease;
+
+}/* Traducción en el navbar */
+.translate-li {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+/* Ajustar tamaño del selector de Google Translate */
+.goog-te-gadget-simple {
+  background: none !important;
+  border: none !important;
+  font-size: 0.9em !important;
+  padding: 0 !important;
+}
+
+.goog-te-gadget-simple a {
+  color: #0f172a !important;
+  text-decoration: none !important;
+}
+
+.goog-te-gadget-simple a:hover {
+  text-decoration: underline !important;
+}
+
+/* Ocultar el banner que aparece arriba al traducir */
+.goog-te-banner-frame.skiptranslate { display: none !important; }
+body { top: 0 !important; }
+
+/* Opcional: ocultar el texto "Powered by Google" si quieres limpiar visual */
+.goog-logo-link { display: none !important; }
+/* ====================== */
+/* SELECTOR DE IDIOMA     */
+/* ====================== */
+.language-selector {
+  display: flex;
+  gap: 6px;           /* espacio entre banderas */
+  align-items: center;
+}
+
+.lang-flag {
+  width: 24px;         /* tamaño de la bandera */
+  height: auto;
+  cursor: pointer;
+  border-radius: 4px;  /* esquinas redondeadas */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lang-flag:hover {
+  transform: scale(1.2);               /* efecto “zoom” al pasar el mouse */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* Opcional: separar ligeramente del resto de links */
+.nav-links .translate-li {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
