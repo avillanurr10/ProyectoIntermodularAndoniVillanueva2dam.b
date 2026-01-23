@@ -2,6 +2,7 @@ import express from "express";
 import axios from "axios";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 import { pool as db } from "./db.js";
 
 import authRoutes from "./routes/auth.routes.js";
@@ -10,6 +11,8 @@ import favoritesRoutes from "./routes/favorites.routes.js";
 dotenv.config();
 
 const app = express();
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Middlewares
 app.use(cors());

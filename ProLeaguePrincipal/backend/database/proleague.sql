@@ -15,8 +15,11 @@ CREATE TABLE favorites (
   team_id INT NOT NULL,
   team_name VARCHAR(100) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   UNIQUE (user_id, league, team_id)
 );
+ALTER TABLE users
+ADD COLUMN avatar VARCHAR(255),
+ADD COLUMN bio TEXT;
+
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil - ProLeague</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN -->
+  <main class="profile-main">
+
+    <section class="profile-card">
+      <div class="profile-avatar">
+        <img id="profile-img" src="images/default-avatar.png" alt="Avatar">
+        <label class="upload-btn">
+          Cambiar imagen
+          <input type="file" id="avatar-input" accept="image/*" hidden>
+        </label>
+      </div>
+
+      <div class="profile-info">
+        <h2 id="profile-username">Usuario</h2>
+        <p id="profile-email">email@email.com</p>
+
+        <label>Sobre mí</label>
+        <textarea id="profile-bio" placeholder="Cuéntanos algo sobre ti..."></textarea>
+
+        <button id="save-profile" class="btn-primary">Guardar cambios</button>
+      </div>
+    </section>
+
+    <section class="profile-security">
+      <h3>Seguridad</h3>
+
+      <div class="security-fields">
+        <input type="text" id="new-username" placeholder="Nuevo nombre de usuario">
+        <input type="password" id="new-password" placeholder="Nueva contraseña">
+      </div>
+
+      <button id="change-credentials" class="btn-danger">
+        Actualizar credenciales
+      </button>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="profile.js"></script>
+
+  <script>
+    fetch("header.html")
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById("header-placeholder").innerHTML = html;
+
+        if (typeof google !== "undefined" && google.translate) {
+          googleTranslateElementInit();
+        }
+
+        const user = JSON.parse(localStorage.getItem("user"));
+        const logoutLink = document.getElementById("nav-logout");
+        const profileLink = document.getElementById("nav-profile");
+
+        if (user) {
+          if (logoutLink) logoutLink.style.display = "inline";
+          if (profileLink) profileLink.style.display = "inline";
+        }
+
+        if (logoutLink) {
+          logoutLink.addEventListener("click", e => {
+            e.preventDefault();
+            localStorage.removeItem("user");
+            window.location.href = "login.html";
+          });
+        }
+      });
+
+    fetch("footer.html")
+      .then(r => r.text())
+      .then(html => document.getElementById("footer-placeholder").innerHTML = html);
+  </script>
+
+</body>
+</html>

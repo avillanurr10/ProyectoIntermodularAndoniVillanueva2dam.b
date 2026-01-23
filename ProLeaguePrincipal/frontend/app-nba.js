@@ -1,18 +1,22 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  await loadHeader(); // Cargar header primero
+  await loadFooter(); // Cargar footer
+
+  // ===== LOGUEADO =====
   const user = JSON.parse(localStorage.getItem("user"));
-  if (!user) { window.location.href = "login.html"; return; }
+  if (user) {
+    const profileLink = document.getElementById("nav-profile");
+    if (profileLink) profileLink.style.display = "inline";
 
-  await loadHeader();
-  await loadFooter();
-
-  const logoutLink = document.getElementById("nav-logout");
-  if(logoutLink){
-    logoutLink.style.display = "inline";
-    logoutLink.addEventListener("click", e => {
-      e.preventDefault();
-      localStorage.removeItem("user");
-      window.location.href = "login.html";
-    });
+    const logoutLink = document.getElementById("nav-logout");
+    if (logoutLink) {
+      logoutLink.style.display = "inline";
+      logoutLink.addEventListener("click", e => {
+        e.preventDefault();
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+      });
+    }
   }
 
   const nbaSection = document.getElementById("nba-section");
