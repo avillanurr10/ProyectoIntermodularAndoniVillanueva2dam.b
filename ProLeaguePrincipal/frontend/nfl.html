@@ -19,6 +19,30 @@
     <section id="nfl-section" style="display:none;">
 
       <h2 class="section-title">Equipos NFL</h2>
+      
+      <!-- CLASIFICACIÓN NFL -->
+      <section class="standings-section">
+        <h3 class="section-title">
+          🏈 Clasificación Actual NFL
+          <button onclick="cargarClasificacion()" style="background:none; border:none; cursor:pointer; font-size:0.6em; margin-left:10px;" title="Actualizar">🔄</button>
+        </h3>
+        <div class="standings-container">
+          <table id="standings-table">
+            <thead>
+              <tr>
+                <th>Pos</th>
+                <th>Equipo</th>
+                <th>G</th>
+                <th>P</th>
+                <th>Porc. Gan.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Se llena desde JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <!-- ===================== -->
       <!-- ANALYTICS DASHBOARD -->

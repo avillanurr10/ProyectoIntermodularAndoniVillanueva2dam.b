@@ -69,7 +69,13 @@
 
         const user = JSON.parse(localStorage.getItem("user"));
         const logoutLink = document.getElementById("nav-logout");
-        if (user && logoutLink) logoutLink.style.display = "inline";
+        const chatLink = document.getElementById("nav-chat");
+        
+        if (user) {
+          if (logoutLink) logoutLink.style.display = "inline";
+          if (chatLink) chatLink.style.display = "inline";
+        }
+        
         if (logoutLink) logoutLink.addEventListener("click", e => {
           e.preventDefault();
           localStorage.removeItem("user");

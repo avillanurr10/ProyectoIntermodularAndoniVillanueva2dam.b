@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ===============================
 async function loadHeader() {
   document.getElementById("header-placeholder").innerHTML =
-    await fetch("header.html").then(r => r.text());
+    await fetch("header.html").then(r => r.text()); 
 }
 
 async function loadFooter() {
@@ -62,7 +62,7 @@ async function loadFooter() {
 // ===============================
 async function cargarFavoritos(userId) {
   try {
-    const res = await fetch(`http://localhost:3000/api/favorites/${userId}`);
+    const res = await fetch(`http://localhost:3000/api/favorites/${userId}`); // llamando al backend para obtener los favoritos del usuario
     const favoritos = await res.json();
 
     const contenedor = document.getElementById("favorites-list");

@@ -85,36 +85,33 @@ function getImageFromItem(item, category) {
 }
 
 // =======================
-// CARGAR RSS
+// CARGAR NOTICIAS DESDE BACKEND
 // =======================
 async function loadRSS(feed) {
   try {
-    const res = await fetch(CORS_PROXY + encodeURIComponent(feed.url));
-    const text = await res.text();
-    const xml = new DOMParser().parseFromString(text, "text/xml");
-    const items = [...xml.querySelectorAll("item")];
+    // LLAMADA AL NUEVO ENDPOINT DEL BACKEND
+    const res = await fetch(`http://localhost:3000/api/news?category=${feed.category.toLowerCase()}`);
+    if (!res.ok) throw new Error("Error al cargar noticias");
+    
+    const items = await res.json();
 
     items.forEach((item, index) => {
-      const title = item.querySelector("title")?.textContent || "";
-      const description = item.querySelector("description")?.textContent || "";
-      const link = item.querySelector("link")?.textContent || "#";
-      const pubDate = item.querySelector("pubDate")?.textContent || "";
-
       const image = getImageFromItem(item, feed.category);
 
       const card = document.createElement("div");
       card.className = `news-card ${feed.category.toLowerCase()}`;
+      // Efecto escalonado
       card.style.animationDelay = `${index * 0.1}s`;
 
       card.innerHTML = `
         <img src="${image}" alt="${feed.category}" loading="lazy">
         <div class="news-card-content">
           <span class="news-tag ${feed.category.toLowerCase()}">${feed.category}</span>
-          <h3>${title}</h3>
-          <p>${description.replace(/<[^>]*>?/gm, "").slice(0, 140)}...</p>
+          <h3>${item.title}</h3>
+          <p>${item.description.replace(/<[^>]*>?/gm, "").slice(0, 140)}...</p>
           <div class="news-footer">
-            <a href="${link}" target="_blank">Leer más →</a>
-            <small>${pubDate ? new Date(pubDate).toLocaleDateString() : ""}</small>
+            <a href="${item.link}" target="_blank">Leer más →</a>
+            <small>${item.pubDate ? new Date(item.pubDate).toLocaleDateString() : ""}</small>
           </div>
         </div>
       `;

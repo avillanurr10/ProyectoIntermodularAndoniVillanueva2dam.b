@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const profileLink = document.getElementById("nav-profile");
     if (profileLink) profileLink.style.display = "inline";
 
+    const chatLink = document.getElementById("nav-chat");
+    if (chatLink) chatLink.style.display = "inline";
+
     const logoutLink = document.getElementById("nav-logout");
     if (logoutLink) {
       logoutLink.style.display = "inline";
@@ -60,23 +63,67 @@ const teamLogos = {
 
 // ===== FUNCIONES =====
 async function cargarClasificacion() {
+  const tbody = document.querySelector("#standings-table tbody");
+  tbody.innerHTML = '<tr><td colspan="5">Cargando clasificación...</td></tr>';
+
   try {
     const res = await fetch("http://localhost:3000/api/nba/standings");
     const data = await res.json();
 
-    const tbody = document.querySelector("#standings-table tbody");
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="5" style="text-align:center">
-          <a href="${data.fullViewLink.href}" target="_blank">
-            Ver clasificación completa en ESPN 🏀
-          </a>
-        </td>
-      </tr>
-    `;
+    // ESPN structure: children -> groups -> standings -> team, stats
+    // Aplanamos la estructura para obtener una lista única de equipos
+    let allEntries = [];
+    
+    // Función auxiliar recursiva para encontrar 'entries'
+    function findEntries(node) {
+        if (node.standings && node.standings.entries) {
+            allEntries = allEntries.concat(node.standings.entries);
+        }
+        if (node.children) {
+            node.children.forEach(child => findEntries(child));
+        }
+    }
+
+    if (data.children) {
+        data.children.forEach(child => findEntries(child));
+    } else if (data.standings && data.standings.entries) {
+        allEntries = data.standings.entries;
+    }
+
+    tbody.innerHTML = "";
+
+    // Sort by Percentage descending
+    allEntries.sort((a, b) => {
+        const pa = a.stats.find(s => s.name === "winPercent")?.value || 0;
+        const pb = b.stats.find(s => s.name === "winPercent")?.value || 0;
+        return pb - pa;
+    });
+
+    allEntries.forEach((entry, index) => {
+        const team = entry.team;
+        // Stats: busca stats por nombre
+        const winsStat = entry.stats.find(s => s.name === "wins") || { value: 0 };
+        const lossesStat = entry.stats.find(s => s.name === "losses") || { value: 0 };
+        const pctStat = entry.stats.find(s => s.name === "winPercent") || { value: 0 };
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img src="${team.logos[0].href}" alt="${team.abbreviation}" style="width:30px; height:30px;">
+                    ${team.displayName}
+                </div>
+            </td>
+            <td>${winsStat.value}</td>
+            <td>${lossesStat.value}</td>
+            <td>${(pctStat.value * 100).toFixed(1)}%</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
   } catch(err) {
     console.error("Error cargando clasificación NBA:", err);
-    const tbody = document.querySelector("#standings-table tbody");
     tbody.innerHTML = `<tr><td colspan="5">No se pudo cargar la clasificación</td></tr>`;
   }
 }
@@ -108,6 +155,9 @@ async function cargarEquipos() {
     console.error("Error cargando equipos NBA:", err);
   }
 }
+
+// Exponer para el botón de refrescar
+window.cargarClasificacion = cargarClasificacion;
 
 function mostrarEquipos(equipos) {
   const contenedor = document.getElementById("team-list");

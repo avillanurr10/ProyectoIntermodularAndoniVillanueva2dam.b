@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const profileLink = document.getElementById("nav-profile");
   if (profileLink) profileLink.style.display = "inline";
 
+  const chatLink = document.getElementById("nav-chat");
+  if (chatLink) chatLink.style.display = "inline";
+
   const logoutLink = document.getElementById("nav-logout");
   if (logoutLink) {
     logoutLink.style.display = "inline";
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const nflSection = document.getElementById("nfl-section");
   nflSection.style.display = "block";
 
+  cargarClasificacion();
   cargarEquipos();
   cargarFavoritos(user.id);
 
@@ -79,6 +83,74 @@ document.addEventListener("DOMContentLoaded", async () => {
     "San Francisco 49ers":"NFL_SF.svg","Seattle Seahawks":"NFL_SEA.png","Tampa Bay Buccaneers":"NFL_TB.svg",
     "Tennessee Titans":"NFL_TEN.svg","Washington Commanders":"NFL_WAS.png"
   };
+
+  // Cargar Clasificación NFL
+  async function cargarClasificacion() {
+    const tbody = document.querySelector("#standings-table tbody");
+    tbody.innerHTML = '<tr><td colspan="5">Cargando clasificación...</td></tr>';
+
+    try {
+      const res = await fetch("http://localhost:3000/api/nfl/standings");
+      const data = await res.json();
+
+      // ESPN NFL structure parsing
+      let allEntries = [];
+
+      function findEntries(node) {
+          if (node.standings && node.standings.entries) {
+              allEntries = allEntries.concat(node.standings.entries);
+          }
+          if (node.children) {
+              node.children.forEach(child => findEntries(child));
+          }
+      }
+
+      if (data.children) {
+          data.children.forEach(child => findEntries(child));
+      } else if (data.standings && data.standings.entries) {
+          allEntries = data.standings.entries;
+      }
+
+      tbody.innerHTML = "";
+
+      // Sort by Win %
+      allEntries.sort((a, b) => {
+          const pa = a.stats.find(s => s.name === "winPercent")?.value || 0;
+          const pb = b.stats.find(s => s.name === "winPercent")?.value || 0;
+          return pb - pa;
+      });
+
+      // Render top 16 or all
+      allEntries.forEach((entry, index) => {
+          const team = entry.team;
+          const winsStat = entry.stats.find(s => s.name === "wins") || { value: 0 };
+          const lossesStat = entry.stats.find(s => s.name === "losses") || { value: 0 };
+          const pctStat = entry.stats.find(s => s.name === "winPercent") || { value: 0 };
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+              <td>${index + 1}</td>
+              <td>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                      <img src="${team.logos[0].href}" alt="${team.abbreviation}" style="width:30px; height:30px;">
+                      ${team.displayName}
+                  </div>
+              </td>
+              <td>${winsStat.value}</td>
+              <td>${lossesStat.value}</td>
+              <td>${(pctStat.value * 100).toFixed(1)}%</td>
+          `;
+          tbody.appendChild(tr);
+      });
+
+    } catch(err) {
+      console.error("Error cargando clasificación NFL:", err);
+      tbody.innerHTML = `<tr><td colspan="5">No se pudo cargar la clasificación</td></tr>`;
+    }
+  }
+
+  // Exponer globalmente para el refresh
+  window.cargarClasificacion = cargarClasificacion;
 
   async function cargarEquipos(){
     try {
