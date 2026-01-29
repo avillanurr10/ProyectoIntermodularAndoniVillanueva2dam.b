@@ -8,9 +8,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div id="header-placeholder"></div>
-
   <main class="login-register-container">
     <section id="register-section">
       <img src="logos/logo-png.png" alt="ProLeague Logo" class="auth-logo">
@@ -28,20 +25,7 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <div id="footer-placeholder"></div>
-
   <script>
-    fetch("header.html")
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById("header-placeholder").innerHTML = html;
-        if (typeof google !== "undefined" && google.translate) googleTranslateElementInit();
-      });
-
-    fetch("footer.html")
-      .then(r => r.text())
-      .then(html => document.getElementById("footer-placeholder").innerHTML = html);
 
     // REGISTER
     const registerForm = document.getElementById("register-form");

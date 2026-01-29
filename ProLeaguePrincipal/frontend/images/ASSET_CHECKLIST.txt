@@ -1,0 +1,5 @@
+This file serves as a reminder to ensure images exist.
+ProLeague logo: /frontend/logos/logo-png.png
+NBA logo: /frontend/images/nba-logo.png
+NFL logo: /frontend/images/nfl-logo.png
+Slider images: /frontend/images/nba1.png, nfl1.jpg, nba2.jpg, etc.

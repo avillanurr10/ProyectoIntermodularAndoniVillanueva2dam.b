@@ -27,6 +27,10 @@
       <div class="slide" style="background-image:url('images/nba4.jpg')"></div>
 
       <div class="slider-overlay">
+        <div id="sports-clock" class="sports-clock">
+          <div id="clock-time">00:00:00</div>
+          <span id="clock-zone">NBA/NFL Time (ET)</span>
+        </div>
         <h1>Bienvenido a ProLeague</h1>
         <p>Las últimas noticias y estadísticas de NBA y NFL en un solo lugar</p>
         <div class="home-buttons">
@@ -34,11 +38,17 @@
           <a href="nfl.html" class="btn-secondary">Ir a NFL</a>
         </div>
       </div>
+      <div class="slider-dots" id="slider-dots"></div>
     </section>
 
     <!-- NOTICIAS -->
     <section class="news-section">
       <h2>Últimas Noticias</h2>
+
+      <!-- BUSCADOR -->
+      <div class="news-search-container">
+        <input type="text" id="news-search" class="news-search-input" placeholder="Buscar noticias...">
+      </div>
 
       <!-- FILTROS -->
       <div class="news-filters">
@@ -66,21 +76,6 @@
       .then(html => {
         document.getElementById("header-placeholder").innerHTML = html;
         if (typeof google !== "undefined" && google.translate) googleTranslateElementInit();
-
-        const user = JSON.parse(localStorage.getItem("user"));
-        const logoutLink = document.getElementById("nav-logout");
-        const chatLink = document.getElementById("nav-chat");
-        
-        if (user) {
-          if (logoutLink) logoutLink.style.display = "inline";
-          if (chatLink) chatLink.style.display = "inline";
-        }
-        
-        if (logoutLink) logoutLink.addEventListener("click", e => {
-          e.preventDefault();
-          localStorage.removeItem("user");
-          window.location.href = "login.html";
-        });
       });
 
     fetch("footer.html")
